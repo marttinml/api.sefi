@@ -32,7 +32,7 @@ module.exports = function(){
     app.use(bodyParser.json());
     app.use(methodOverride());
     
-    //require('../app/routes/membership.route')(app);
+    require('../app/routes/membership.route')(app);
     require('../app/routes/sefi.route')(app);
 
     return app;

@@ -9,6 +9,7 @@ module.exports = function (app) {
 
     app.route('/find').post(Membership.find);
     app.route('/login').post(Membership.login);
+    app.route('/test').get(Membership.test);
 
     
 };

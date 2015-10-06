@@ -119,3 +119,11 @@ exports.login = function(req, res) {
     });
   };
 
+
+
+
+
+  exports.test = function(req, res) {
+    res.send({obj:"Gelow"});
+  };
+
