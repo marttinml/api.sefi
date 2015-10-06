@@ -1,5 +1,5 @@
 {
-    "name": "ccles",
+    "name": "api.sefi",
     "version": "0.0.1",
     "dependencies": {
       "express": "~4.8.8",
@@ -9,6 +9,6 @@
 		  "method-override": "~2.2.0"
   },
   "engines": {
-    "node": "0.10.29"
+    "node": "4.1.1"
   }
 }
