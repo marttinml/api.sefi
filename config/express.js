@@ -13,8 +13,9 @@ module.exports = function(){
     app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.0.17');
-
+    //res.setHeader('Access-Control-Allow-Origin', 'http://192.168.0.17');
+    res.setHeader('Access-Control-Allow-Origin', 'http://alom.mx');
+    
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
