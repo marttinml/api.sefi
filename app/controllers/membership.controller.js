@@ -1,129 +1,71 @@
-var Membership   = require('mongoose').model('Membership'),
-    response  = {},
-    start     = 0,
-    end       = 0;
+var controller  = 'Membership';
+var Membership  = require('../models/membership.model');
+var Util        = require('../utils/log.util');
+var MongoClient = require('mongodb').MongoClient;
+var assert      = require('assert');
+var ObjectId    = require('mongodb').ObjectID;
+var url         = 'mongodb://usrsefi:passsefi@ds029814.mongolab.com:29814/sefi';
 
-exports.create = function (req, res) {
+
+// Actions
+exports.insert = function (req, res) {
     var d   = new Date();
     start   = d.getMilliseconds();
-    and   = 0;
 
-    console.log('\nuser.controller > create()');
-    console.log('············································································'+d);
-    console.log('   D A T A B A S E');
-    console.log('Schema:  Membership.create()');
-    console.log('>>> Data Request');
-    console.log(req.body);
+    Util.logStart({controller : 'Membership', method:'insert', d : d, body:req.body });
 
-    var membership = new Membership({
-        user 		    : req.body.user,
-        password 	    : req.body.password,
-        name 	        : req.body.name,
-        status          : req.body.status,
-        isConnected     : req.body.isConnected,
-        lastConnection   : req.body.lastConnection,
-        date 		    : d
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      Membership.insertDocument(db, req.body, function(result) {
+          db.close();
+          Util.logEnd({ start : start , response: result.ops});
+          res.status(200).jsonp(result.ops);
+      });
     });
-
-    membership.save(function (err) {
-
-        response = !err ? membership : err;
-
-        console.log('\n<<< Data Response');
-        console.log(membership);
-        d   = new Date()
-        end = d.getMilliseconds();
-        console.log('············································································ Time: '+(end-start)+' ms');
-        
-        res.send(response);
-    });
-    
 };
-
-
-
-
-exports.update = function(req, res){
-    
+exports.find = function (req, res) {
     var d   = new Date();
     start   = d.getMilliseconds();
-    and   = 0;
 
-    console.log('\nuser.controller > create()');
-    console.log('············································································'+d);
-    console.log('   D A T A B A S E');
-    console.log('Schema:  Membership.create()');
-    console.log('>>> Data Request');
-    console.log(req.body);
+    Util.logStart({controller : 'Membership', method:'find', d : d, body:req.body });
 
-    Membership.update(
-        { _id: req.body._id },
-        {$set:
-            {
-                user            : req.body.user,
-                password        : req.body.password,
-                name            : req.body.name,
-                status          : req.body.status,
-                isConnected     : req.body.isConnected,
-                lastConnection   : req.body.lastConnection
-            }
-        },
-        function(err){
-            response = !err ? req.body : err;
-
-            console.log('\n<<< Data Response');
-            console.log(response);
-            d   = new Date()
-            end = d.getMilliseconds();
-            console.log('············································································ Time: '+(end-start)+' ms');
-        
-            res.send(response);
-        }
-    );
-
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      Membership.findDocument(db, req.body || {}, function(result) {
+          db.close();
+          Util.logEnd({ start : start , response: result});
+          res.status(200).jsonp(result);
+      });
+    });
 };
+exports.remove = function (req, res) {
+    var d   = new Date();
+    start   = d.getMilliseconds();
 
+    Util.logStart({controller : 'Membership', method:'remove', d : d, body:req.body });
 
-exports.retrieve = function(req, res) {
-  	Membership.find(function(err, memberships) {
-  		if(!err) {
-  			res.send(memberships);
-        console.log('Called: ·························· retrieve()');
-  		} else {
-  			console.log('ERROR: ' + err);
-  		}
-  	});
-  };
-
-exports.find = function(req, res) {
-    Membership.find({_id: req.body._id  }, function(err, membership) {
-        if(!err) {
-            res.send(membership);
-            console.log('Called: ·························· login()');
-        } else {
-            console.log('ERROR: ' + err);
-        }
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      Membership.removeDocument(db, req.body || {_id:'xd'}, function(result) {
+          db.close();
+          Util.logEnd({ start : start , response: result});
+          res.status(200).jsonp(result);
+      });
     });
-  };
+};
+exports.login = function (req, res) {
+    var d   = new Date();
+    start   = d.getMilliseconds();
 
+    Util.logStart({controller : 'Membership', method:'find', d : d, body:req.body });
 
-exports.login = function(req, res) {
-    Membership.find({user : req.body.user, password : req.body.password  }, function(err, memberships) {
-        if(!err) {
-            //memberships = memberships.length > 0 ? true : false
-            res.send(memberships);
-            console.log('Called: ·························· login()');
-        } else {
-            console.log('ERROR: ' + err);
-        }
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      var data = { user :req.body.user || '', password : req.body.password || '' };
+      Membership.login(db, data, function(result) {
+          db.close();
+          Util.logEnd({ start : start , response: result});
+          res.status(200).jsonp(result);
+      });
     });
-  };
-
-
-
-
-
-  exports.test = function(req, res) {
-    res.send({obj:"Gelow"});
-  };
-
+};
