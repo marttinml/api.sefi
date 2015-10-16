@@ -1,4 +1,12 @@
-var Membership = require('./membership.controller');
+var controller  = 'Sefi';
+var Membership  = require('../models/membership.model');
+var Util        = require('../utils/log.util');
+var MongoClient = require('mongodb').MongoClient;
+var assert      = require('assert');
+var ObjectId    = require('mongodb').ObjectID;
+var url         = 'mongodb://usrsefi:passsefi@ds029814.mongolab.com:29814/sefi';
+var obj = {success:false,data:'',description:''};
+
 var $scope = {};
     
     var getID = function(){
@@ -148,8 +156,8 @@ exports.build = function (req, res) {
     data.sex         = $scope.sex.id;
     data.sign        = '/sefi/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
 
-    data.address1    = 'C '+ $scope.street;
-    data.address2    = $scope.baseAddress.local + ' ' + $scope.baseAddress.cp;
+    data.address1    = $scope.street;
+    data.address2    = $scope.baseAddress.local + ' \t ' + $scope.baseAddress.cp;
     data.address3    = $scope.baseAddress.del+', '+$scope.baseAddress.state.id+'.';
 
     data.curp     = getCURP();
@@ -157,8 +165,20 @@ exports.build = function (req, res) {
     data.folio    = getFolio();
     data.ID       = getID();
 
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      Membership.checkToken(db, req.body.user, function(result) {
+          
+          if(result){
+            Util.logEnd({ start : start , response: result.ops});
+            res.status(200).jsonp(data);
+          }else{
+            res.status(200).jsonp(obj);
+          }
+          
+      });
+    });
 
-    res.send(data);
     
 };
 

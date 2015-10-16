@@ -15,3 +15,7 @@ exports.logEnd = function(val){
     console.log(val.response);
     console.log('············································································ Time: '+val.d+' ms');
 };
+exports.buildToken = function(){
+    var d   = new Date();
+    return d.getFullYear() +""+ d.getMonth() +""+ d.getDate() +""+ d.getHours() +""+ d.getMinutes() +""+ d.getSeconds() +""+ d.getMilliseconds();
+};

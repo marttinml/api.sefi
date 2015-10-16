@@ -1,11 +1,15 @@
 /*jslint node:true*/
-var express = require("express"),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    app     = express();
+var express         = require("express"),
+    bodyParser      = require('body-parser'),
+    methodOverride  = require('method-override'),
+    app             = express(),
+    session         = require('express-session');
 
 module.exports = function(){
     
+    
+    
+
     app.use(bodyParser.urlencoded({
         extended: true
     }));
@@ -13,8 +17,8 @@ module.exports = function(){
     app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    //res.setHeader('Access-Control-Allow-Origin', 'http://192.168.0.17');
-    res.setHeader('Access-Control-Allow-Origin', 'http://alom.mx');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+    //res.setHeader('Access-Control-Allow-Origin', 'http://alom.mx');
     
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -33,8 +37,19 @@ module.exports = function(){
     app.use(bodyParser.json());
     app.use(methodOverride());
     
+
+
+
     require('../app/routes/membership.route')(app);
     require('../app/routes/sefi.route')(app);
 
     return app;
 };
+
+
+
+
+
+
+
+

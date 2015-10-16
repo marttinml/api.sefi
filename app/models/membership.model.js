@@ -6,10 +6,9 @@ exports.insertDocument = function(db, data, callback) {
         password        : data.password,
         name            : data.name,
         status          : data.status,
-        isConnected     : data.isConnected,
-        lastConnection  : data.lastConnection,
-        date            : data.d,
-        profile         : data.profile
+        session         : data.session,
+        profile         : data.profile,
+        date            : new Date(),
     }, function(err, result) {
     assert.equal(err, null);
     callback(result);
@@ -50,4 +49,31 @@ exports.login = function(db, data, callback) {
          callback(result);
       }
    });
+};
+
+
+exports.insertToken = function(db, data, callback) {
+  var where = { user : data.user, password : data.password };
+   db.collection('membership').updateOne(
+      where,
+      {
+        $set: { "session.token": data.token },
+        $currentDate: { "lastModified": true }
+      }, function(err, results) {
+
+        exports.findDocument(db, where, function(result){
+          callback(result[0]);
+        })
+      
+   });
+};
+
+exports.checkToken = function(db, data, callback) {
+  var where = { user : data.user, password : data.password };
+
+        exports.findDocument(db, where, function(result){
+          db.close();
+          var endResult = result[0].session.token == data.session.token ? true : false;
+          callback(endResult);
+        });
 };
