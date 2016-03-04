@@ -150,7 +150,6 @@ exports.build = function (req, res) {
     data.lastName2   = $scope.lastName2;
     data.birthdate   = $scope.birthdate.day + '/' + $scope.birthdate.month + '/'+$scope.birthdate.year;
     data.old         = $scope.old;
-    data.registerYear= (Number($scope.birthdate.year) + 1918) + ' 00';
     data.no          = $scope.baseAddress.state.no;
     data.local       = $scope.baseAddress.local;
     data.del         = $scope.baseAddress.del;
@@ -172,6 +171,8 @@ exports.build = function (req, res) {
     data.folioIFE = getFolioIFE();
     data.folio    = getFolio();
     data.ID       = getID();
+    
+    data.registerYear= (Number($scope.birthdate.year) + 1918) + ' 00';
 
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
