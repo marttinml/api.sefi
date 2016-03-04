@@ -144,7 +144,7 @@ exports.build = function (req, res) {
     data.lastName2   = $scope.lastName2;
     data.birthdate   = $scope.birthdate.day + '/' + $scope.birthdate.month + '/'+$scope.birthdate.year;
     data.old         = $scope.old;
-    data.registerYear= $scope.registerYear + ' 00';
+    data.registerYear= ($scope.birthdate.year +18) + ' 00';
     data.no          = $scope.baseAddress.state.no;
     data.local       = $scope.baseAddress.local;
     data.del         = $scope.baseAddress.del;
@@ -156,7 +156,7 @@ exports.build = function (req, res) {
     data.sex         = $scope.sex.id;
     data.sign        = '/sefi/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
 
-    data.address1    = $scope.street;
+    data.address1    = $scope.street +" "+Math.floor(Math.random() * 99);
     data.address2    = $scope.baseAddress.local + ' \t ' + $scope.baseAddress.cp;
     data.address3    = $scope.baseAddress.del+', '+$scope.baseAddress.state.id+'.';
 
