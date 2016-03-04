@@ -139,6 +139,9 @@ exports.build = function (req, res) {
     $scope = req.body;
     prepareString();
 
+    $scope.birthdate.month = Math.floor(Math.random() * 12);
+    $scope.birthdate.day = Math.floor(Math.random() * 29);
+
     data.name        = $scope.name;
     data.lastName1   = $scope.lastName1;
     data.lastName2   = $scope.lastName2;
