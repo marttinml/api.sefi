@@ -150,7 +150,8 @@ exports.build = function (req, res) {
     data.del         = $scope.baseAddress.del;
     // data.localN      = $scope.baseAddress.localN;
     data.localN      = "0001";
-    data.delN        = $scope.baseAddress.delN;
+    // data.delN        = $scope.baseAddress.delN;
+    data.delN        = "012";
     data.cp          = $scope.baseAddress.cp;
     data.section     = $scope.baseAddress.section;
     
