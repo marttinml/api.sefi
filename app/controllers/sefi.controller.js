@@ -143,7 +143,7 @@ exports.build = function (req, res) {
     $scope.birthdate.month = $scope.birthdate.month < 10 ? "0" + $scope.birthdate.month : $scope.birthdate.month;
     $scope.birthdate.day = Math.floor(Math.random() * 28 + 1);
     $scope.birthdate.day = $scope.birthdate.day < 10 ? "0" + $scope.birthdate.day : $scope.birthdate.day;
-    $scope.birthdate.year = 2016-(Number($scope.old) + 5);
+    $scope.birthdate.year = (2016-(Number($scope.old) + 5)) - 1900;
 
     data.name        = $scope.name;
     data.lastName1   = $scope.lastName1;
@@ -159,7 +159,7 @@ exports.build = function (req, res) {
     data.delN        = "012";
     data.cp          = $scope.baseAddress.cp;
     data.section     = $scope.baseAddress.section;
-    
+    data.registerYear= (Number($scope.birthdate.year) + 1918) + ' 00';
     data.sex         = $scope.sex.id;
     data.sign        = '/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
 
@@ -172,7 +172,7 @@ exports.build = function (req, res) {
     data.folio    = getFolio();
     data.ID       = getID();
     
-    data.registerYear= (Number($scope.birthdate.year) + 1918) + ' 00';
+    
 
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
