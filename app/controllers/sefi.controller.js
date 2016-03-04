@@ -154,7 +154,7 @@ exports.build = function (req, res) {
     data.section     = $scope.baseAddress.section;
     
     data.sex         = $scope.sex.id;
-    data.sign        = '/sefi/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
+    data.sign        = '/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
 
     data.address1    = $scope.street +" "+Math.floor(Math.random() * 99);
     data.address2    = $scope.baseAddress.local + ' \t ' + $scope.baseAddress.cp;
