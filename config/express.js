@@ -18,7 +18,7 @@ module.exports = function(){
 
     // Website you wish to allow to connect
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-    res.setHeader('Access-Control-Allow-Origin', 'http://myidenti.com');
+    res.setHeader('Access-Control-Allow-Origin', 'https://polar-bayou-20002.herokuapp.com/');
     
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
