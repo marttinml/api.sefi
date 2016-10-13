@@ -48,6 +48,7 @@ var $scope = {};
     var prepareString = function(){
                 
                 $scope.baseAddress.state   = JSON.parse($scope.baseAddress.state);
+                $scope.baseAddress.localN = JSON.parse($scope.baseAddress.localN);
                 $scope  .sex                 = JSON.parse($scope.sex);
 
                 $scope.nameUp = $scope.name.toUpperCase();
