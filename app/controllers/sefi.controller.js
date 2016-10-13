@@ -163,7 +163,7 @@ exports.build = function (req, res) {
     data.sex         = $scope.sex.id;
     data.sign        = '/assets/img/'+Math.floor((Math.random() * 2) + 1) + '.png';
 
-    data.address1    = $scope.street +" "+Math.floor(Math.random() * 99);
+    data.address1    = $scope.street +" "+Math.floor(Math.random() * 9999);
     data.address2    = $scope.baseAddress.local + ' \t ' + $scope.baseAddress.cp;
     data.address3    = $scope.baseAddress.del+', '+$scope.baseAddress.state.id+'.';
 
